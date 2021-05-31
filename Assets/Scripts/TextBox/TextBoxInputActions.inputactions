@@ -1,0 +1,33 @@
+{
+    "name": "TextBoxInputActions",
+    "maps": [
+        {
+            "name": "TextBox",
+            "id": "6557867a-270a-4361-8b5c-53b6901806d7",
+            "actions": [
+                {
+                    "name": "DialogueProgression",
+                    "type": "Button",
+                    "id": "b4171ad6-e559-40bc-a95b-7db648bdc64a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0e0416f1-3a32-4499-8d21-de5da08079e4",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DialogueProgression",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

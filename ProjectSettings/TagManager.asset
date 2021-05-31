@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Inventory
+  - TextBox
+  - Interactable
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 1086461421
+    locked: 0
+  - name: ObjectsBehindWall
+    uniqueID: 3409307847
+    locked: 0
+  - name: Wall
+    uniqueID: 3465936371
+    locked: 0
+  - name: WallDecoration
+    uniqueID: 4073635759
+    locked: 0
+  - name: Objects
+    uniqueID: 3944785275
+    locked: 0
+  - name: Player
+    uniqueID: 1565238335
+    locked: 0
+  - name: ObjectsAbovePlayer
+    uniqueID: 3397807547
+    locked: 0
