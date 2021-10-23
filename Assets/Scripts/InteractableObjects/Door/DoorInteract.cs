@@ -6,13 +6,14 @@ using System;
 public class DoorInteract : Interactable
 {
     public Action <bool> UpdateDoorOpenness; 
-    [SerializeField] private Sprite doorClosed;
-    [SerializeField] private Sprite doorOpened;
-    [SerializeField] private GameObject blockingPlayerColliderObject;
-    [SerializeField] private GameObject opposingSideOpenTrigger;
+    [SerializeField] private Sprite doorClosed = null;
+    [SerializeField] private Sprite doorOpened = null;
+    [SerializeField] private GameObject blockingPlayerColliderObject = null;
+    [SerializeField] private GameObject opposingSideOpenTrigger = null;
     private bool opened = false;
-    [SerializeField] private string closedDoorSortingLayer;
-    private void Start() {
+    [SerializeField] private string closedDoorSortingLayer = "";
+    [SerializeField] private string openDoorSortingLayer = "";
+    new private void Start() {
         opposingSideOpenTrigger.GetComponent<DoorInteract>().UpdateDoorOpenness += UpdateOpenness;
     }
     public override void InteractObjectResponse() {
@@ -25,6 +26,7 @@ public class DoorInteract : Interactable
         } else if (!opened) {
             doorObjectRenderer.sprite = doorOpened;
             blockingPlayerColliderObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            doorObjectRenderer.sortingLayerName = openDoorSortingLayer;
             opened = true;
         }
     }

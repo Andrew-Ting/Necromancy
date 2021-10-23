@@ -49,6 +49,14 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SpeedUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""271cf2ae-7a38-48b3-bfdc-eee744417a16"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -205,6 +213,17 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                     ""action"": ""Dialogue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61d5d72c-3fc9-4a86-ad39-05f6687789dc"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,6 +236,7 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
         m_Player_WalkVertical = m_Player.FindAction("WalkVertical", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Dialogue = m_Player.FindAction("Dialogue", throwIfNotFound: true);
+        m_Player_SpeedUp = m_Player.FindAction("SpeedUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -270,6 +290,7 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_WalkVertical;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Dialogue;
+    private readonly InputAction m_Player_SpeedUp;
     public struct PlayerActions
     {
         private @PlayerInputControls m_Wrapper;
@@ -278,6 +299,7 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
         public InputAction @WalkVertical => m_Wrapper.m_Player_WalkVertical;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Dialogue => m_Wrapper.m_Player_Dialogue;
+        public InputAction @SpeedUp => m_Wrapper.m_Player_SpeedUp;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -299,6 +321,9 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                 @Dialogue.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDialogue;
                 @Dialogue.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDialogue;
                 @Dialogue.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDialogue;
+                @SpeedUp.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedUp;
+                @SpeedUp.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedUp;
+                @SpeedUp.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpeedUp;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -315,6 +340,9 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
                 @Dialogue.started += instance.OnDialogue;
                 @Dialogue.performed += instance.OnDialogue;
                 @Dialogue.canceled += instance.OnDialogue;
+                @SpeedUp.started += instance.OnSpeedUp;
+                @SpeedUp.performed += instance.OnSpeedUp;
+                @SpeedUp.canceled += instance.OnSpeedUp;
             }
         }
     }
@@ -325,5 +353,6 @@ public class @PlayerInputControls : IInputActionCollection, IDisposable
         void OnWalkVertical(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnDialogue(InputAction.CallbackContext context);
+        void OnSpeedUp(InputAction.CallbackContext context);
     }
 }

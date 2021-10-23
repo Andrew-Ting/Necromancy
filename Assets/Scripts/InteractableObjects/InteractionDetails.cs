@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[System.Serializable]
 public class InteractionDetails
 {
     public string interactComment = "Interact placeholder text here.";

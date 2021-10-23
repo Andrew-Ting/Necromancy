@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MidFloorSkeleton.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/LowFloorSkeleton.unity
+    guid: a0276ea67111c6c488e8218191e5a277
+  - enabled: 1
+    path: Assets/Scenes/SewerSkeleton.unity
+    guid: 73bc54d983353bd4c8ec4d04d4ac40dc
   m_configObjects: {}

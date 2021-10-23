@@ -16,14 +16,16 @@ public class InventoryController : MonoBehaviour
     public Sprite handIcon;
     public GameObject dragCancelLayer;
     #region Private Variables
-    [SerializeField] private Sprite selectedSlotSprite;
+    [SerializeField] private Sprite selectedSlotSprite = null;
     [SerializeField] private string incorrectMergeComment = "Not sure how I can put those together.";
-    [SerializeField] private GameObject[] inventorySlots;
+    [SerializeField] private GameObject[] inventorySlots = null;
     private int currentlySelectedSlotIndex = 0;
     private InventoryInputActions inventoryInputActions;
-    [SerializeField] private TextBoxController textBoxController;
-    [SerializeField] private List<InventoryMergeCombinations> inventoryMergeCombinations;
+    [SerializeField] private TextBoxController textBoxController = null;
+    [SerializeField] private List<InventoryMergeCombinations> inventoryMergeCombinations = null;
     private int retardedNetMouseChange = 0;
+    [SerializeField] private InventoryPersistentData inventoryPersistentData = null;
+
     #endregion
     private void Awake() {
         inventoryInputActions = new InventoryInputActions();
@@ -38,7 +40,9 @@ public class InventoryController : MonoBehaviour
     private void Start()   
     {
         inventoryInputActions.Inventory.ScrollItems.performed += ctx => InventoryScroll(ctx.ReadValue<float>());
-        SetSelectedSlotIconToCurrentSelected(0, 0);
+        SetSelectedSlotIconToCurrentSelected(0, inventoryPersistentData.GetSelectedItem());
+        List <Sprite> inventorySlotItems = inventoryPersistentData.GetInventory();
+        SetInventoryLayoutTo(inventorySlotItems);
     }
     private void InventoryScroll(float scrollDelta) {
         if (scrollDelta > 0f) {
@@ -65,7 +69,8 @@ public class InventoryController : MonoBehaviour
     }
 
     public void SetSelectedSlotIndex(int selectedSlot) {
-        if (!inventorySlots[selectedSlot].GetComponent<Image>().sprite == uiMask) {
+       // Debug.Log(inventorySlots[selectedSlot].transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite.sprite);
+        if (inventorySlots[selectedSlot].transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite != uiMask) {
             SetSelectedSlotIconToCurrentSelected(currentlySelectedSlotIndex, selectedSlot);
             currentlySelectedSlotIndex = selectedSlot;
         }
@@ -77,12 +82,14 @@ public class InventoryController : MonoBehaviour
         for (int i = 0; i < inventorySlots.Length; i++) {
             if (inventorySlots[i].transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite == uiMask) {
                 inventorySlots[i].transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = inventoryObject;
-                return;
+                break;
             }
         }
+        SaveInventoryLayout();
     }
     public void DestroyCurrentSelection() {
          inventorySlots[currentlySelectedSlotIndex].transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = uiMask;
+         SaveInventoryLayout();
     }
 
     public bool IsHandSelection() {
@@ -132,5 +139,20 @@ public class InventoryController : MonoBehaviour
             }
         }
         SetToHandSelection();
+        SaveInventoryLayout();
+    }
+    private void SetInventoryLayoutTo(List <Sprite> inventoryItemSprites) {
+        int iterator = 0;
+        foreach (Sprite sprite in inventoryItemSprites) {
+            inventorySlots[iterator].transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite = sprite;
+            iterator++;
+        }
+    }
+    private void SaveInventoryLayout() {
+        List <Sprite> inventory = new List<Sprite>();
+        for (int i = 0; i < inventorySlots.Length; i++) {
+            inventory.Add(inventorySlots[i].transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite);
+        }
+        inventoryPersistentData.SetInventory(inventory);
     }
 }

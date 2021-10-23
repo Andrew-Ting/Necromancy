@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
-    [SerializeField] private GameObject inventoryUI;
+    [SerializeField] private GameObject inventoryUI = null;
     private GameObject dragCancelLayer;
     private Sprite uiMask;
     private Sprite handIcon;

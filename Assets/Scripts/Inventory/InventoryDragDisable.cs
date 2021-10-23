@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class InventoryDragDisable : MonoBehaviour
 {
-    [SerializeField] private TextBoxController textBoxController;
+    [SerializeField] private TextBoxController textBoxController = null;
     // Start is called before the first frame update
     void Start()
     {
