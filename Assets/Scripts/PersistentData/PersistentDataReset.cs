@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResetPersistentData : MonoBehaviour
+public class PersistentDataReset : MonoBehaviour
 {
     [SerializeField] private List<InteractionPersistentData> gameData = null;
     [SerializeField] private InventoryPersistentData inventoryPersistentData = null;
+    [SerializeField] private WallCodePersistentData wallCodePersistentData = null;
     public void Awake() {
         Button thisButton = GetComponent<Button>();
        thisButton.onClick.AddListener(() => {
@@ -16,8 +17,9 @@ public class ResetPersistentData : MonoBehaviour
 
     void ResetData() {
         foreach (InteractionPersistentData data in gameData) {
-            data.Reset();
+            data.ResetData();
         }
-        inventoryPersistentData.Reset();
+        inventoryPersistentData.ResetData();
+        wallCodePersistentData.ResetData();
     }
 }

@@ -21,7 +21,7 @@ public class InventoryPersistentData : ScriptableObject
     public int GetSelectedItem() {
         return selectedObject;
     }
-    public void Reset() {
+    public void ResetData() {
         inventoryLayout = new List<Sprite>();
         inventoryLayout.Add(handSelect);
         for (int i = 1; i < inventorySlotCount; i++)

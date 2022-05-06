@@ -19,7 +19,7 @@ public class InteractionPersistentData : ScriptableObject
     public void CompleteInteraction() {
         interactionOccurred = true;
     }
-    public void Reset() {
+    public void ResetData() {
         interactionOccurred = false;
     }
     public bool IsCompleted() {

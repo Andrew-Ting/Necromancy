@@ -20,11 +20,19 @@ public class PlayerController : MonoBehaviour
     private Interactable latestObjectInteractable;
     private InventoryController inventoryController;
     private ReadUIController readUIController;
+    private MinigameController minigameController;
+    #endregion
+
+    #region State of UI popups which freeze player
+    private bool textDisplaying = false;
+    private bool isReading = false;
+    private bool isPlayingMinigame = false;
     #endregion
     private void Awake() {
         playerInputControls = new PlayerInputControls();
         textBoxController = FindObjectOfType<TextBoxController>();
         readUIController = FindObjectOfType<ReadUIController>();
+        minigameController = FindObjectOfType<MinigameController>();
         if (GlobalData.spawnPosition[(int)playerFloor] != Vector3.zero)
             transform.position = GlobalData.spawnPosition[(int)playerFloor]; // use default position when room hasn't been visited yet (don't set any spawn point to exactly Vector3.zero)
     }
@@ -32,8 +40,10 @@ public class PlayerController : MonoBehaviour
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        textBoxController.dialogueBoxDisplaying += textDisplaying => {freezeCharacter = textDisplaying; animator.SetBool("isWalking", false);};
-        readUIController.ReadStartOrElseEnd += isReading => {freezeCharacter = isReading; animator.SetBool("isWalking", false);};
+        textBoxController.dialogueBoxDisplaying += textDisplaying => {this.textDisplaying = textDisplaying; DetermineFrozenState();};
+        readUIController.ReadStartOrElseEnd += isReading => {this.isReading = isReading; DetermineFrozenState();};
+        if (minigameController)
+            minigameController.minigameDisplaying += isPlayingMinigame => {this.isPlayingMinigame = isPlayingMinigame; DetermineFrozenState();};
     }
     private void OnEnable() {
         playerInputControls.Enable();
@@ -42,8 +52,10 @@ public class PlayerController : MonoBehaviour
         playerInputControls.Disable();
     }
 
-    private void OnMouseDown() {
-        Debug.Log("HI");
+    private void DetermineFrozenState() {
+        freezeCharacter = textDisplaying || isReading || isPlayingMinigame;
+        if (freezeCharacter)
+            animator.SetBool("isWalking", false);
     }
 
     void FixedUpdate()
@@ -77,14 +89,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D interactableObject) {
-        //Debug.Log("Entered interact range of " + interactableObject.gameObject.name);
+        Debug.Log("Entered interact range of " + interactableObject.gameObject.name);
         if (interactableObject.gameObject.tag == "Interactable") {
             latestObjectInteractable = interactableObject.gameObject.GetComponent<Interactable>();
             playerInputControls.Player.Interact.performed += InteractLatestObjectResponse;
         }
     }
     private void OnTriggerExit2D(Collider2D interactableObject) {
-        //Debug.Log("Exited interact range!");
+        Debug.Log("Exited interact range!");
         if (interactableObject.gameObject.tag == "Interactable") {
             latestObjectInteractable = interactableObject.gameObject.GetComponent<Interactable>();
             playerInputControls.Player.Interact.performed -= InteractLatestObjectResponse;

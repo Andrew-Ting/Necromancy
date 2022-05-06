@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,7 +19,7 @@ public class SlotController : MonoBehaviour, IPointerDownHandler, IDropHandler
         handIcon = transform.parent.GetComponent<InventoryController>().handIcon;
     }
     public void OnPointerDown(PointerEventData eventData) {
-        //Debug.Log("OnPointerDown");
+        Debug.Log("OnPointerDown");
         lastPointerDownLocation = eventData.position;
         if (eventData.pointerEnter && eventData.pointerEnter.GetComponent<Image>().sprite != uiMask) {
             inventoryController.SetSelectedSlotIndex(currentSlotIndex);

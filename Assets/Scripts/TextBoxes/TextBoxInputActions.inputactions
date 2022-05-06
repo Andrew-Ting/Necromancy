@@ -25,6 +25,17 @@
                     "action": "DialogueProgression",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b98028a3-69a8-47ea-9afa-453e55334c7d",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DialogueProgression",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

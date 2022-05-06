@@ -21,7 +21,7 @@ public class GhostController : MonoBehaviour
         transform.position = ghostWaitPoints[curWaitPointNum];
     }
 
-    /*void OnDrawGizmosSelected() {
+    void OnDrawGizmosSelected() {
         if (ghostWaitPoints.Count > 0) {
             Gizmos.color = Color.green;
             Gizmos.DrawCube(ghostWaitPoints[0], new Vector3(.3f, .3f, .3f));
@@ -31,7 +31,7 @@ public class GhostController : MonoBehaviour
                 Gizmos.DrawCube(ghostWaitPoints[i], new Vector3(.3f, .3f, .3f));
             }    
         }
-    }*/
+    }
 
     void OnTriggerEnter2D(Collider2D interactableObject) {
         if (interactableObject.gameObject.tag == "Player" && GlobalData.SpecialInteractionData.ghostProgress < ghostWaitPoints.Count - 1) {

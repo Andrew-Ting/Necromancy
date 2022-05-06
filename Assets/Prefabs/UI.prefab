@@ -129,7 +129,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 301, y: 181}
+  m_AnchoredPosition: {x: 414, y: 286}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2098515969974278964
@@ -546,7 +546,6 @@ GameObject:
   - component: {fileID: 2098515970271677240}
   - component: {fileID: 2098515970271677247}
   - component: {fileID: 2098515970271677241}
-  - component: {fileID: 2098515970271677243}
   - component: {fileID: 2098515970271677242}
   m_Layer: 5
   m_Name: Inventory
@@ -653,22 +652,6 @@ MonoBehaviour:
     mergeComment: I lit the candle with the matchsticks.
   inventoryPersistentData: {fileID: 11400000, guid: 40675de53064cc548a1d1fdffed1ca96,
     type: 2}
---- !u!58 &2098515970271677243
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2098515970271677245}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &2098515970271677242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3371,7 +3354,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
 public class LocationSceneSwitcher : MonoBehaviour
 {
     private enum LocationSceneType {
@@ -22,6 +21,8 @@ public class LocationSceneSwitcher : MonoBehaviour
     private Animator screenTransition;
     [SerializeField] private float screenTransitionTime = 2f;
     [SerializeField] private bool interactMovement = false; // when this is false, player is automatically moved to next scene on enter trigger. Otherwise, they need to finish a text box.
+    [SerializeField] private InteractionPersistentData isLocationUnlocked = null; // persistent data to keep track of player's progress in interactMovement (only applicable when interactMovement is false)
+
     #region Spawn Position Setting Vars 
     // these variables set where the player spawns in the current scene right before they leave it (for when they come back)
     [SerializeField] private GlobalData.Floor fromFloorType = GlobalData.Floor.NotApplicable; 
@@ -39,24 +40,29 @@ public class LocationSceneSwitcher : MonoBehaviour
         helperPanel.SetActive(false);
     }
     void OnTriggerEnter2D() {
-        if (!interactMovement || GlobalData.SpecialInteractionData.unlockedSewers)
+        if (!interactMovement || !textBoxController.GetIsDisplaying()) {
+            if (isLocationUnlocked)
+                isLocationUnlocked.CompleteInteraction();
             StartCoroutine(loadScene());
+        }
         isInSceneMoveRange = true;
     }
     void OnTriggerExit2D() {
         isInSceneMoveRange = false;
     }
     void Awake() {
-        textBoxController = FindObjectOfType<TextBoxController>();
+        textBoxController = GameObject.Find("UI").transform.Find("TextBox").GetComponent<TextBoxController>();
         textBoxController.dialogueBoxDisplaying += StartSceneSwitchAfterDialogue;
     }
     void Start() {
         helperPanel = GameObject.Find("SwipeToBlackPanel");
         screenTransition = helperPanel.GetComponent<Animator>();
+        if (isLocationUnlocked)
+            interactMovement = !isLocationUnlocked.IsCompleted();
     }
     void StartSceneSwitchAfterDialogue(bool dialogueBoxDisplaying) {
         if (!dialogueBoxDisplaying && isInSceneMoveRange) {
-            GlobalData.SpecialInteractionData.unlockedSewers = true; // definitely change this hack to a scriptable object if more flexibility is needed; for now, this will do
+            isLocationUnlocked.CompleteInteraction();
             StartCoroutine(loadScene());
         }
     }

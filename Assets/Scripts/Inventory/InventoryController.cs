@@ -41,6 +41,7 @@ public class InventoryController : MonoBehaviour
     {
         inventoryInputActions.Inventory.ScrollItems.performed += ctx => InventoryScroll(ctx.ReadValue<float>());
         SetSelectedSlotIconToCurrentSelected(0, inventoryPersistentData.GetSelectedItem());
+        currentlySelectedSlotIndex = inventoryPersistentData.GetSelectedItem();
         List <Sprite> inventorySlotItems = inventoryPersistentData.GetInventory();
         SetInventoryLayoutTo(inventorySlotItems);
     }
@@ -59,6 +60,7 @@ public class InventoryController : MonoBehaviour
             currentlySelectedSlotIndex = Mathf.Clamp(currentlySelectedSlotIndex, 0, inventorySlots.Length - 1);
             if (inventorySlots[currentlySelectedSlotIndex].transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite == uiMask)
                 currentlySelectedSlotIndex = prevSelectedSlotIndex;
+            SaveInventorySelectedItem();
             SetSelectedSlotIconToCurrentSelected(prevSelectedSlotIndex, currentlySelectedSlotIndex);
             retardedNetMouseChange = 0;
         }
@@ -73,6 +75,7 @@ public class InventoryController : MonoBehaviour
         if (inventorySlots[selectedSlot].transform.Find("ItemImage").gameObject.GetComponent<Image>().sprite != uiMask) {
             SetSelectedSlotIconToCurrentSelected(currentlySelectedSlotIndex, selectedSlot);
             currentlySelectedSlotIndex = selectedSlot;
+            SaveInventorySelectedItem();
         }
     }
     public Sprite GetCurrentSelection() {
@@ -99,6 +102,7 @@ public class InventoryController : MonoBehaviour
     public void SetToHandSelection() {
         SetSelectedSlotIconToCurrentSelected(currentlySelectedSlotIndex, 0);
         currentlySelectedSlotIndex = 0;
+        SaveInventorySelectedItem();
     }
 
     public void MergeItems(int fromSlotIndex, int toSlotIndex) {
@@ -148,6 +152,7 @@ public class InventoryController : MonoBehaviour
             iterator++;
         }
     }
+    #region inventory item state and selected object saving in persistent data
     private void SaveInventoryLayout() {
         List <Sprite> inventory = new List<Sprite>();
         for (int i = 0; i < inventorySlots.Length; i++) {
@@ -155,4 +160,9 @@ public class InventoryController : MonoBehaviour
         }
         inventoryPersistentData.SetInventory(inventory);
     }
+    
+    private void SaveInventorySelectedItem() {
+        inventoryPersistentData.SetSelectedItem(currentlySelectedSlotIndex);
+    }
+    #endregion
 }

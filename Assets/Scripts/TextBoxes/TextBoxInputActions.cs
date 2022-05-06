@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/TextBox/TextBoxInputActions.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/TextBoxes/TextBoxInputActions.inputactions'
 
 using System;
 using System.Collections;
@@ -32,6 +32,17 @@ public class @TextBoxInputActions : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""0e0416f1-3a32-4499-8d21-de5da08079e4"",
                     ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DialogueProgression"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b98028a3-69a8-47ea-9afa-453e55334c7d"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
